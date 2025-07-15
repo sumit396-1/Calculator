@@ -163,18 +163,23 @@
   </div>
 
   <script>
-    let latitude = "";
-    let longitude = "";
-
-    // Location
+  window.onload = function () {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        latitude = position.coords.latitude;
-        longitude = position.coords.longitude;
-        document.getElementById("latitude").value = latitude;
-        document.getElementById("longitude").value = longitude;
-      });
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          document.getElementById('latitude').value = position.coords.latitude;
+          document.getElementById('longitude').value = position.coords.longitude;
+        },
+        function (error) {
+          alert('Location permission is required. Please allow location access.');
+          console.error(error);
+        }
+      );
+    } else {
+      alert('Geolocation is not supported by this browser.');
     }
+  };
+    </script>
 
     // Device, browser, screen, language, IP
     window.addEventListener("load", () => {
